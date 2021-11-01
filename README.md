@@ -7,6 +7,6 @@ https://github.com/ksksho/Ubuntu-Ultra96
 
 ## Others
 勉強した内容のまとめなどのその他の文書は以下に配置。   
-- [what I study](documents/whatIstudy.md)
+- [study GPIO](documents/studyGPIO.md)
 
 ### reference
