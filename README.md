@@ -7,6 +7,6 @@ https://github.com/ksksho/Ubuntu-Ultra96
 
 ## Others
 勉強した内容のまとめなどのその他の文書は以下に配置。   
-- [what I study](documents/whatIstudy)
+- [what I study](documents/whatIstudy.md)
 
 ### reference
