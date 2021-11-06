@@ -1,6 +1,6 @@
 # 96Baords MIPI adapter
 
-## [40pin LS CONN]-[CONN]-[J15]
+## [40pin LS CONN]-[CONN]-[26pin J15]
 ### To Ultra96 PS GPIO
 - [J7-23]-[APQ_GPIO36]-[J15-9]
 - [J7-24]-[APQ_GPIO12]-[J15-1]
