@@ -1,25 +1,58 @@
 # studyGPIO
+## シリアル通信
+### SPI通信
+デバイス同士の接続によく利用される同期式シリアル通信。4つの信号線を使う。
+- SIMO: マスターモード時は出力ピン、スレーブモード時は入力ピン
+- SOMI: マスターモード時は入力ピン、スレーブモード時は出力ピン
+- SCLK: マスターモード時はクロック出力ピン、スレーブモード時はクロック入力ピン
+- SS: マスターが複数あるスレーブ機器のうち通信したいスレーブ機器のSS端子をLowに制御して通信する。スレーブ端子が1つしかない場合はLow固定でOK。
+### I2C通信
+デバイス同士の接続によく利用される同期式シリアル通信。速度はSPI通信に劣るが、2本の信号線で接続する。
+- SDA: データ通信用。
+- SCL: クロック信号用。マスター側がスレーブ側に出力する。
+### UART
+デバイス同士の接続によく利用される非同期シリアル通信。2つの信号線で接続する。
+- TXD: データ送信用
+- RXD: データ受信用
+また、さらに2つの信号線を用いてハードウェアフロー制御を行うこともできる。
+- RTS: 送信要求信号
+- CTS: 送信可信号
+
+## MIPI
+モバイルデバイス用に設計された業界仕様の標準規格。D=PHY, C-PHY, M-PHYの3つの共通独自物理レイヤを定義。高速通信用のHSモードおよび少電力用のLSモードがある。
+###　MIPI D-PHY
+最初に登場した物理層でモバイルデバイスのカメラやモニタで一般的に使用される。データ信号とクロック信号を別に伝送する。データ信号数に規定はないが、データ信号線4対・クロック信号線1対の信号線合計10本を利用するのが典型的。
+
+### MIPI M-PHY
+D-PHYよりも高速な後継規格で、クロック信号およびデータ信号を重畳して伝送する。D-PHYから物理層を大幅に刷新するコストが高いなどの理由でまだ普及していない。
+
+### MIPI C-PHY
+D-PHYの物理層を流用しながら高速化および低コスト化を図ったのがC-PHYである。D-PHYと同じ信号線数でデータ伝送速度をおよそ1.5倍にすることができる。クロック信号およびデータ信号を重畳して伝送する。
+送信ICは1レーンあたり3本の信号線(Va, Vb, Vc)を使用。受信IC側は3本の信号線の差動電圧(Va-Vb, Vb-Vc, Vc-Va)を検知。
+
 ## GPIOの概要
 GPIOはGeneral Purpose Input/Outputの略で、汎用I/Oポートとも呼ばれる。以下の特徴がある。
 - ユーザー側から制御可能
 - 入出力に使える
 - 有効/無効の切り替え可能
 - 入力割り込み機能
-## Ultra96-V2のハードウェア仕様
-### Ultra96-V2の入出力配置
+
+
+
+## Ultra96-V2の入出力配置
 Ultra96-V2の入出力は以下のように配置されている。ユーザー用ブッシュボタンにUser Push Button(SW1)が用意されている。また、様々なLEDが用意されている。   
 ![Ultra96-V2 I/O image](ultra96v2.png)
 
-### Ultra96-V2のハードウェアユーザガイド
+## Ultra96-V2のハードウェアユーザガイド
 [HW User Guide](Ultra96-V2-HW-User-Guide-v1_3.pdf)より以下がわかる。
-#### プッシュボタンスイッチ
+### プッシュボタンスイッチ
 ユーザーが利用可能なプッシュボタンは以下の通り。
 - PS MIO Bank 500(1.8V, MIOs 0 to 25)
 	- MIO23 Push Button(SW1)
 		- MPSoC Pin Number: AB5
 		- MPSoC Site Name: PS_MIO23_500
 		- Ultra96-V2 Net name: MIO23_GPIO_PB
-#### LED
+### LED
 ユーザーが利用可能なLEDは以下の通り。
 - Four user-controllable LEDs connected to PS_MIO[17..20]
 	- PS LEDs
@@ -67,7 +100,7 @@ Ultra96-V2の入出力は以下のように配置されている。ユーザー�
 		- MPSoC VCCO: +VCC_AUX = 1.8V
 		- Color: Blue
 		
-#### Bluetooth   
+### Bluetooth   
 The ATWILC300-MR110CA Bluetooth interface connects through a UART interface. Since the Bluetooth UART interface requires hardware flow-control (RTS/CTS), which is only available through the PL, the UART RX/TX signals are connected to PS UART0 (MIO2, MIO3) and the RTS/CTS signals are connected to the PL High-Density (HD) bank. A blue LED is connected to Bank 26 programmable logic and can be used to indicate that Bluetooth is enabled when configured properly.
 - Bluetooth
 	- MPSoC Pin Number: B5
@@ -81,7 +114,11 @@ The ATWILC300-MR110CA Bluetooth interface connects through a UART interface. Sin
 	- MPSoC Site Name: IO_L12P_AD0P_26
 	- Ultra96-V2 Net Name: BT_HCI_RTS
 	- MPSoC VCCO: +VCC_AUX = 1.8V
-#### 40 Pin Low Speed Expansion Connector (J5)
+
+### GPIO
+#### PL 
+
+### 40 Pin Low Speed Expansion Connector (J5)
 Ultra96-V2 provides a 96Boards compatible Low Speed Expansion Connector. A Molex
 87381-4063 (or compatible) 40 pin low profile female 2mm receptacle (20x2) 4.5mm height
 is specified.
@@ -89,7 +126,38 @@ Table 24 shows the pinout of the Low Speed Expansion Header (Ultra96-V2 column) 
 the differences from the 96Boards specification (96Boards column). Except for I2C0 and
 I2C1, all dedicated interfaces specified by 96Boards can be replaced with GPIO or any
 other IP supported by Zynq UltraScale+.
-- HD PL IO Bank 26 (1.8V)
+- PS MIO Bank 501 (GPIO)
+	- PS_MIO36
+		- MPSoC Pin Number: D10
+		- MPSoC Site Name: PS_MIO36_501
+		- Ultra96-V2 Net name: MIO36_PS_GPIO1_0
+		- Connects to: J5-23
+	- PS_MIO37
+		- MPSoC Pin Number: E11
+		- MPSoC Site Name: PS_MIO37_501
+		- Ultra96-V2 Net name: MIO37_PS_GPIO1_1
+		- Connects to: J5-24
+	- PS_MIO39
+		- MPSoC Pin Number: C10
+		- MPSoC Site Name: PS_MIO39_501
+		- Ultra96-V2 Net name: MIO39_PS_GPIO1_2
+		- Connects to: J5-25
+	- PS_MIO40
+		- MPSoC Pin Number: D11
+		- MPSoC Site Name: PS_MIO40_501
+		- Ultra96-V2 Net name: MIO40_PS_GPIO1_3
+		- Connects to: J5-26
+	- PS_MIO44
+		- MPSoC Pin Number: B11
+		- MPSoC Site Name: PS_MIO44_501
+		- Ultra96-V2 Net name: MIO44_PS_GPIO1_4
+		- Connects to: J5-27
+	- PS_MIO45
+		- MPSoC Pin Number: A11
+		- MPSoC Site Name: PS_MIO45_501
+		- Ultra96-V2 Net name: MIO45_PS_GPIO1_5
+		- Connects to: J5-28
+- HD PL IO Bank 26 (1.8V) (GPIO)
 	- HD_GPIO0
 		- MPSoC Pin Number: D7
 		- MPSoC Site Name: IO_L5P_HDGC_AD7P_26
@@ -154,10 +222,35 @@ other IP supported by Zynq UltraScale+.
 		- MPSoC Pin Number: C5
 		- MPSoC Site Name: IO_L7N_HDGC_AD5N_26
 		- Pin: 34
+
+- GND
+	- Pin:1
+	- Pin:2
+	- Pin: 39
+	- Pin: 40
+- Power
+	- +1V8
+		- 1.8V
+		- Pin: 35
+	- +5V0
+		- 5.0V
+		- Pin: 37
+
 		
 ## GPIOの使用方法
 ### PS側GPIOの使用方法
 Vivadoでの接続作業は特に必要ない。制御方法は以下を参照。
+MIO36_PS_GPIO1_0 (J5-23)を操作する場合。
+```
+// 制御フォルダの作成
+sudo sh -c echo "36" > /sys/class/gpio/export
+// 出力時(LED等)
+sudo sh -c echo "out" > /sys/class/gpio/gpio36/direction
+sudo sh -c echo "0" > /sys/class/gpio/gpio36/value
+sudo sh -c echo "1" > /sys/class/gpio/gpio36/value
+//　制御フォルダの削除
+sudo sh -c echo "36" > /sys/class/gpio/unecport
+```
 - https://qiita.com/Ryuz/items/2a2603c2ce01fc054cf0
 - https://www.trenz.jp/tutorial/zb-gpio.html
 
