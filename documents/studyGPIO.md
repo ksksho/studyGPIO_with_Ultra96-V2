@@ -239,8 +239,8 @@ other IP supported by Zynq UltraScale+.
 		
 ## GPIOの使用方法
 ### PS側GPIOの使用方法
-Vivadoでの接続作業は特に必要ない。制御方法は以下を参照。
-MIO36_PS_GPIO1_0 (J5-23)を操作する場合。
+Vivadoでの接続作業は特に必要ない。
+以下はMIO36_PS_GPIO1_0 (J5-23)を操作する場合の例。
 ```
 // 制御フォルダの作成
 sudo sh -c echo "36" > /sys/class/gpio/export
@@ -251,8 +251,7 @@ sudo sh -c echo "1" > /sys/class/gpio/gpio36/value
 //　制御フォルダの削除
 sudo sh -c echo "36" > /sys/class/gpio/unecport
 ```
-- https://qiita.com/Ryuz/items/2a2603c2ce01fc054cf0
-- https://www.trenz.jp/tutorial/zb-gpio.html
+
 
 
 ### PL側GPIOの使用方法
