@@ -1,6 +1,10 @@
 # 96Baords MIPI adapter
 
 ## [40pin LS CONN]-[CONN]-[26pin J15]
+26pin J15コネクタは，ボードの角に1番近いピンが1番であとは図の通り．導線を接続する場合はジャンパワイヤ(メス)を使えばよい．
+### Power/GND
+- [Power 1.8V]-[J15-25]
+- [GND]-[J15-26]
 ### To Ultra96 PS GPIO
 - [J7-23]-[APQ_GPIO36]-[J15-9]
 - [J7-24]-[APQ_GPIO12]-[J15-1]
