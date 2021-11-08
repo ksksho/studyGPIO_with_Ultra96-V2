@@ -249,17 +249,19 @@ Vivadoでの接続作業は特に必要ない。
 以下はMIO36_PS_GPIO1_0 (J5-23)を操作する場合の例。
 ```
 // 制御フォルダの作成
-sudo sh -c 'echo "36" > /sys/class/gpio/export'
+$ sudo sh -c 'echo "36" > /sys/class/gpio/export'
+
 // 出力時(LED等)
-sudo sh -c 'echo "out" > /sys/class/gpio/gpio36/direction'
-sudo sh -c 'echo "0" > /sys/class/gpio/gpio36/value'
-sudo sh -c 'echo "1" > /sys/class/gpio/gpio36/value'
+$ sudo sh -c 'echo "out" > /sys/class/gpio/gpio36/direction'
+$ sudo sh -c 'echo "0" > /sys/class/gpio/gpio36/value'
+$ sudo sh -c 'echo "1" > /sys/class/gpio/gpio36/value'
 // 入力時(スイッチ等)
-sudo sh -c 'echo "in" > /sys/class/gpio/gpio36/direction'
-cat /sys/class/gpio/gpio36/value
+$ sudo sh -c 'echo "in" > /sys/class/gpio/gpio36/direction'
+$ cat /sys/class/gpio/gpio36/value
 > 0 or 1
+
 //　制御フォルダの削除
-sudo sh -c 'echo "36" > /sys/class/gpio/unecport'
+$ sudo sh -c 'echo "36" > /sys/class/gpio/unecport'
 ```
 
 
