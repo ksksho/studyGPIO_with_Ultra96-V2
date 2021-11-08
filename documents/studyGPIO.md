@@ -248,6 +248,13 @@ other IP supported by Zynq UltraScale+.
 Vivadoでの接続作業は特に必要ない。
 以下はMIO36_PS_GPIO1_0 (J5-23)を操作する場合の例。
 ```
+// GPIO番号の確認(今回は0始まりなので36だが，0始まりとは限らない)
+$ sudo cat /sys/kernel/debug/gpio
+> gpio-0   (UART1_TX )
+> ...
+> gpio-36  (GPIO-A   )
+> ...
+
 // 制御フォルダの作成
 $ sudo sh -c 'echo "36" > /sys/class/gpio/export'
 
