@@ -9,7 +9,7 @@
 $ which echo
 > /usr/bin/echo
 ```
-https://dev.classmethod.jp/articles/systemd-setting-to-execute-program-automatically-on-start/
+[【systemd】プログラム自動起動の設定時にハマったこと（ユーザ指定・Pythonパス指定・ウィンドウ表示）](https://dev.classmethod.jp/articles/systemd-setting-to-execute-program-automatically-on-start/)
 
 ## 自動起動方法
 ### systemdを使った自動化
