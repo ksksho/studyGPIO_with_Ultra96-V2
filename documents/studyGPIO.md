@@ -52,6 +52,7 @@ Ultra96-V2の入出力は以下のように配置されている。ユーザー�
 		- MPSoC Pin Number: AB5
 		- MPSoC Site Name: PS_MIO23_500
 		- Ultra96-V2 Net name: MIO23_GPIO_PB
+		- Connect to SW1-1
 ### LED
 ユーザーが利用可能なLEDは以下の通り。
 - Four user-controllable LEDs connected to PS_MIO[17..20]
@@ -62,6 +63,7 @@ Ultra96-V2の入出力は以下のように配置されている。ユーザー�
 		- Ultra96-V2 Net name: MIO20_PS_LED0
 		- MPSoC VCCO: +VCC_PSAUX = 1.8V
 		- Color: Green
+		- Connect to Q3-2
 	- PS LEDs
 		- MPSoC Pin Number: AA4
 		- Bank: 500
@@ -69,6 +71,7 @@ Ultra96-V2の入出力は以下のように配置されている。ユーザー�
 		- Ultra96-V2 Net name: MIO19_PS_LED1
 		- MPSoC VCCO: +VCC_PSAUX = 1.8V
 		- Color: Green
+		- Connect to Q3-5
 	- PS LEDs
 		- MPSoC Pin Number: Y5
 		- Bank: 500
@@ -76,6 +79,7 @@ Ultra96-V2の入出力は以下のように配置されている。ユーザー�
 		- Ultra96-V2 Net name: MIO18_PS_LED2
 		- MPSoC VCCO: +VCC_PSAUX = 1.8V
 		- Color: Green
+		- Connect to Q5-2
 	- PS LEDs
 		- MPSoC Pin Number: AA3
 		- Bank: 500
@@ -83,6 +87,7 @@ Ultra96-V2の入出力は以下のように配置されている。ユーザー�
 		- Ultra96-V2 Net name: MIO17_PS_LED3
 		- MPSoC VCCO: +VCC_PSAUX = 1.8V
 		- Color: Green
+		- Connect to Q5-5
 - User-controllable Radio status connected to PL Pin B9/A9
 	- Radio LEDs
 		- MPSoC Pin Number: A9
@@ -91,7 +96,7 @@ Ultra96-V2の入出力は以下のように配置されている。ユーザー�
 		- Ultra96-V2 Net name: RADIO_LED0
 		- MPSoC VCCO: +VCC_AUX = 1.8V
 		- Color: Yellow
-	- Radio LEDs
+		- Connect to Q6-2
 	- Radio LEDs
 		- MPSoC Pin Number: B9
 		- Bank: 26
@@ -99,6 +104,7 @@ Ultra96-V2の入出力は以下のように配置されている。ユーザー�
 		- Ultra96-V2 Net name: RADIO_LED1
 		- MPSoC VCCO: +VCC_AUX = 1.8V
 		- Color: Blue
+		- Connect to Q6-5
 		
 ### Bluetooth   
 The ATWILC300-MR110CA Bluetooth interface connects through a UART interface. Since the Bluetooth UART interface requires hardware flow-control (RTS/CTS), which is only available through the PL, the UART RX/TX signals are connected to PS UART0 (MIO2, MIO3) and the RTS/CTS signals are connected to the PL High-Density (HD) bank. A blue LED is connected to Bank 26 programmable logic and can be used to indicate that Bluetooth is enabled when configured properly.
